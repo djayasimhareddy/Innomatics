@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>URL Shortener</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<h1>Simple URL Shortener</h1>
+
+<form method="POST">
+    <input type="text" name="original_url" placeholder="Enter URL (https://example.com)" required>
+    <button type="submit">Shorten</button>
+</form>
+
+{% if error %}
+<p class="error">{{ error }}</p>
+{% endif %}
+
+{% if short_url %}
+<div class="result">
+    <p>Short URL:</p>
+    <input type="text" value="{{ short_url }}" id="shortUrl" readonly>
+    <button onclick="copyText()">Copy</button>
+</div>
+{% endif %}
+
+<br>
+<a href="/history">View History</a>
+
+<script>
+function copyText() {
+    let box = document.getElementById("shortUrl");
+    box.select();
+    document.execCommand("copy");
+    alert("Copied!");
+}
+</script>
+
+</body>
+</html>
