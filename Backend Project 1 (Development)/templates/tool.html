@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Regex Tester Mini</title>
+    <style>
+        body { font-family: Arial; background: #f4f6f8; padding: 30px; }
+        .card { background: white; padding: 20px; width: 500px; border-radius: 8px; }
+        .tag { background: #dff1ff; padding: 5px 8px; margin: 4px; display: inline-block; border-radius: 4px; }
+        .err { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Simple Regex Matcher</h2>
+
+    <form method="post">
+        <p>
+            <b>Regex Pattern:</b><br>
+            <input type="text" name="pattern" value="{{ pattern_value }}" style="width: 100%;" required>
+        </p>
+
+        <p>
+            <b>Test String:</b><br>
+            <textarea name="input_text" rows="5" style="width: 100%;" required>{{ text_value }}</textarea>
+        </p>
+
+        <button type="submit">Find Matches</button>
+    </form>
+
+    <hr>
+
+    {% if error_msg %}
+        <p class="err">{{ error_msg }}</p>
+    {% endif %}
+
+    {% if output %}
+        <p><b>Matches found: {{ output|length }}</b></p>
+        {% for x in output %}
+            <span class="tag">{{ x }}</span>
+        {% endfor %}
+    {% elif request.method == "POST" and not error_msg %}
+        <p><b>No matches found.</b></p>
+    {% endif %}
+</div>
+
+</body>
+</html>
+
